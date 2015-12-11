@@ -28,6 +28,7 @@ gem 'rails_12factor', group: :production
 gem 'simple_form'
 gem 'faker'
 gem 'font-awesome-sass'
+gem 'bcrypt', '~> 3.1.7'
 
 
 # Use ActiveModel has_secure_password
