@@ -1,0 +1,48 @@
+
+  <section class="header-11-sub">
+      <div class="container">
+          <div class="row">
+              <div class="col-sm-5">
+                  <h3>Incognito chat for faceless</h3>
+                  <p>Who say what, who say so, who know, who care... We are incognitors</p>
+                  <div class="signup-form">
+                    <%= form_for @user || User.new do |f| %>
+                      <div class="form-group">
+                        <%= f.text_field 'email', class: 'form-control', placeholder: 'Your E-mail' %>
+                      </div>
+                       <div class="form-group">
+                        <%= f.text_field 'name', class: 'form-control', placeholder: 'Name' %>
+                      </div>
+                      <div class="form-group">
+                        <div class="half-width">
+                          <%= f.password_field 'password', class: 'form-control', placeholder: 'Password' %>
+                        </div>
+                        <div class="half-width">
+                          <%= f.password_field 'password_confirmation', class: 'form-control', placeholder: 'Confirmation' %>          
+                        </div>  
+                      </div>
+                      <% if @user && @user.errors.any? %>
+                        <div class="alert alert-danger" role="alert">
+                          <ul>
+                            <% @user.errors.full_messages.each do |err| %>
+                              <li>
+                                <strong><%= err %></strong>
+                              </li>
+                            <% end %>
+                          </ul>
+                        </div>
+                      <% end %>
+                      <div class="form-group">
+                          <%= f.submit 'Sign Up', class: 'btn btn-block btn-incognito-main' %>
+                      </div>    
+                    <% end %>
+                  </div>  
+                  <div class="additional-links">By signing up you agree to <a href="#">Terms of Use</a> and <a href="#">Privacy</a></div>
+              </div>
+              <div class="col-sm-6">
+	              <%= image_tag 'incognito' %>
+              </div>
+          </div>
+      </div>
+  </section>
+
