@@ -1,0 +1,22 @@
+<div>
+    <div class="row">
+        <div class="btn-toolbar" role="toolbar">
+          <div class="btn-group" role="group">
+            <%= link_to "new message", new_message_path, class: "btn btn-secondary" %>
+          </div>
+          <div class="btn-group" role="group">
+            <%= link_to "add friends", new_message_path, class: "btn btn-secondary" %>
+          </div>
+          <div class="btn-group" role="group">
+            <%= link_to "send messages", new_message_path, class: "btn btn-secondary" %>
+          </div>
+        </div>
+    </div>
+    <% @message.each do |m| %>
+        <div class="row">
+            <div class="card card-block">
+              <p class="card-text"><%= m.body %></p>
+            </div>
+        </div>
+    <% end %>
+</div>
