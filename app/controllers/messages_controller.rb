@@ -10,8 +10,8 @@ class MessagesController < ApplicationController
 
   def create
       @message = Message.new(message_params)
-      @message.sender_id = session[:user_id]
-      @message.receiver_id = session[:user_id]
+      @message.sender = User.find(session[:user_id])
+      @message.receiver = User.find(session[:user_id])
 
       if @message.save 
         redirect_to messages_path
