@@ -1,1 +1,11 @@
-<div>chat page</div>
+<% if @users %>
+    <% @users.each do |u| %>
+        <div class="row">
+            <div class="card card-block">
+              <h4 class="card-title"><%= u.name %></h4>
+              <p class="card-text"><%= u.email %></p>
+              <%= link_to 'Add to friend list', new_user_relationship_path(:user_id => u.id) , class: 'card-link' %>
+            </div>
+        </div>
+    <% end %>
+<% end %>

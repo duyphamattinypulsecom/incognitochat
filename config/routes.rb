@@ -1,12 +1,17 @@
 Rails.application.routes.draw do
-  get 'messages/index'
+  resources :users, only: [:index, :create]
+  resources :sessions, only: [:new, :create, :destroy]
+  resources :messages, only: [:index]
+  resources :relationships, only: [:create]
 
-  get 'welcome/index'
+  resources :relationships do 
+    resources :messages, only: [:index, :create]
+  end
 
-  resources :users
-  resources :sessions
-  resources :messages
-  
+  resources :users do
+    resources :relationships, only: [:new]
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

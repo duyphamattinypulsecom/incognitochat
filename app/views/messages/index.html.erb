@@ -1,33 +1,37 @@
 <div class="row">
-    <div class="row">
-        <div class="col-sm-3">
-            your incognitors
-        </div>
-        <div class="col-sm-9">
-            messages
-        </div>
-    </div>
     <div class="col-sm-3">
-        
+        <%= link_to "add friends", users_path, class: "pull-right card-link" %>
     </div>
-    <div class="col-sm-9">
-      <% @message.each do |m| %>
-          <div class="row">
-              <div class="card card-block">
-                <p class="card-text"><%= m.body %></p>
-              </div>
-          </div>
-      <% end %>
+</div>
+
+<div class="row row-margin">
+    <div class="col-sm-3 col-container-format">
+        <ul class="list-group">
+            <% @friends.each do |f| %>
+                <%= link_to (f.to.name + content_tag(:span, "unread messages", :class => "label label-default label-pill pull-right")).html_safe, relationship_messages_path(f), class: "list-group-item" %>
+            <% end %>
+        </ul>
     </div>
-    <div class="btn-toolbar" role="toolbar">
-      <div class="btn-group" role="group">
-        <%= link_to "new message", new_message_path, class: "btn btn-secondary" %>
+    <div class="col-sm-8">
+      <div class="row">
+        <% if params[:relationship_id] %>
+          <%= form_for Message.new, url: relationship_messages_path(params[:relationship_id]) do |f| %>
+            <div class="form-group">
+              <%= f.text_area 'body', class: 'text-incognito form-control', placeholder: 'message content', rows: "3"  %>
+            </div>
+            
+            <%= f.submit 'send message', class: 'btn btn-incognito-main pull-right' %>
+          <% end %>
+        <% end %>
       </div>
-      <div class="btn-group" role="group">
-        <%= link_to "add friends", new_message_path, class: "btn btn-secondary" %>
-      </div>
-      <div class="btn-group" role="group">
-        <%= link_to "send messages", new_message_path, class: "btn btn-secondary" %>
+      <div class="msg-container-format">
+        <% @messages.each do |m| %>
+            <div class="row">
+                <div class="card card-block no-border">
+                  <p class="card-text"><%= m.body %></p>
+                </div>
+            </div>
+        <% end %>
       </div>
     </div>
 </div>
