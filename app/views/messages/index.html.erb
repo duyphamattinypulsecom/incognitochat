@@ -7,8 +7,31 @@
 <div class="row row-margin">
     <div class="col-sm-3 col-container-format">
         <ul class="list-group">
-            <% @friends.each do |f| %>
-                <%= link_to (f.to.name + content_tag(:span, "unread messages", :class => "label label-default label-pill pull-right")).html_safe, relationship_messages_path(f), class: "list-group-item" %>
+            <% @my_friends.each do |f| %>
+                <% unread_tag = ""
+                    if f.new_message
+                      unread_tag = content_tag(:span, "unread messages", :class => "label label-default label-pill pull-right")
+                    end
+                %>
+                <% if @relation && f.id == @relation.id %>
+                  <%= link_to (f.to.name + unread_tag).html_safe, relationship_messages_path(f), class: "list-group-item active-friend" %>
+                <% else %>      
+                  <%= link_to (f.to.name + unread_tag).html_safe, relationship_messages_path(f), class: "list-group-item" %>
+                <% end %>
+            <% end %>
+        </ul>
+        <ul class="list-group">
+            <% @their_friends.each do |f| %>   
+                <% unread_tag = ""
+                    if f.new_message
+                      unread_tag = content_tag(:span, "unread messages", :class => "label label-default label-pill pull-right")
+                    end
+                %>     
+                <% if @relation &&  f.id == @relation.id %>
+                  <%= link_to (f.from.name + unread_tag).html_safe, relationship_messages_path(f), class: "list-group-item active-friend" %>
+                <% else %>      
+                  <%= link_to (f.from.name + unread_tag).html_safe, relationship_messages_path(f), class: "list-group-item" %>
+                <% end %>
             <% end %>
         </ul>
     </div>
@@ -28,7 +51,14 @@
         <% @messages.each do |m| %>
             <div class="row">
                 <div class="card card-block no-border">
-                  <p class="card-text"><%= m.body %></p>
+                    <% if !m.read%>
+                      <h4 class="card-title"><%= m.body %></h4>                    
+                    <% end %>
+                    <% if m.read %>
+                      <p class="card-text">Read - last updated <%= m.updated_at %></p>
+                    <% else %>
+                      <p class="card-text">Unread - last updated <%= m.updated_at %></p>
+                    <% end %>
                 </div>
             </div>
         <% end %>

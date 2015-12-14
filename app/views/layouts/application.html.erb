@@ -15,10 +15,13 @@
             <li class="nav-item">
               <a class="nav-link" href="/logout">sign out</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<%= messages_path %>">my messages</a>
+            </li>
+            <li class="nav-item pull-right">
+              <a class="nav-link">Hi, <%= current_user.name %></a>
+            </li>
         <% end %>
-        <li class="nav-item">
-          <a class="nav-link" href="<%= messages_path %>">my messages</a>
-        </li>
       </ul>
     </div>
 </nav>

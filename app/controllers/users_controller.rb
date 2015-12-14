@@ -1,6 +1,15 @@
 class UsersController < ApplicationController
     def index
-        @users = User.where("id not in (select r.to_id from relationships r where r.from_id = ?)", session[:user_id])
+        @users = User.where("id != ? 
+            and id not in (select r.to_id from relationships r where r.from_id = ?) 
+            and id not in (select r.from_id from relationships r where r.to_id = ?)", 
+            session[:user_id], 
+            session[:user_id], 
+            session[:user_id])
+    end
+
+    def new
+        
     end
 
     def create
@@ -9,7 +18,7 @@ class UsersController < ApplicationController
             session[:user_id] = @user.id
             redirect_to messages_path
         else
-            render 'welcome/index'
+            render 'new'
         end
     end
 
